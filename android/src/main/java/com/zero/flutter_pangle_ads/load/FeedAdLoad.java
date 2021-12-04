@@ -53,7 +53,7 @@ public class FeedAdLoad extends BaseAdPage implements TTAdNative.NativeExpressAd
     public void onError(int i, String s) {
         Log.e(TAG, "onError code:" + i + " msg:" + s);
         sendErrorEvent(i, s);
-        this.result.error(""+i,s,s);
+        this.result.success(new List[]{});
     }
 
 
