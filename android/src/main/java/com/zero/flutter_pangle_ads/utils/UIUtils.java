@@ -20,9 +20,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * Created by bytedance on 2019/9/5.
+ * UI 工具类
  */
-
 public class UIUtils {
 
     public static float getScreenWidthDp(Context context) {

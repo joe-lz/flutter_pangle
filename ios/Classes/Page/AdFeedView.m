@@ -46,11 +46,13 @@
     BUNativeExpressAdView *loadAdView=notification.object;
     NSDictionary *userInfo=notification.userInfo;
     NSString *event=[userInfo objectForKey:@"event"];
-    if([event isEqualToString:onAdExposure]){
+    if([event isEqualToString:onAdPresent]){
+        // 设置 Feed View 大小为广告 View 的大小
+        self.feedView.frame=self.adView.frame;
         // 渲染成功，设置高度
         CGSize size= loadAdView.frame.size;
         [self setFlutterViewSize:size];
-    }else if([event isEqualToString:onAdClosed]){
+    }else if([event isEqualToString:onAdClosed]||[event isEqualToString:onAdError]){
         // 广告关闭移除广告，并且设置大小为 0，隐藏广告
         [self.adView removeFromSuperview];
         [self setFlutterViewSize:CGSizeZero];
@@ -61,7 +63,6 @@
     NSNumber *width=[NSNumber numberWithFloat:size.width];
     NSNumber *height=[NSNumber numberWithFloat:size.height];
     NSDictionary *dicSize=[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:width,height, nil] forKeys:[NSArray arrayWithObjects:@"width",@"height", nil]];
-    self.adView.center=self.feedView.center;
     [self.methodChannel invokeMethod:@"setSize" arguments:dicSize];
 }
 
@@ -70,9 +71,11 @@
     NSString *name=[NSString stringWithFormat:@"%@/%@", kAdFeedViewId, key.stringValue];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postMsghandler:) name:name object:nil];
     self.adView=[FeedAdManager.share getAd:key];
-    self.adView.rootViewController=self.rootController;
-    [self.feedView addSubview:self.adView];
-    [self.adView render];
+    if(self.adView){
+        self.adView.rootViewController=self.rootController;
+        [self.feedView addSubview:self.adView];
+        [self.adView render];
+    }
 }
 
 @end

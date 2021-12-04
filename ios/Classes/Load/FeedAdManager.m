@@ -32,7 +32,7 @@ NSMutableDictionary *adList;// 已加载信息流广告列表
 }
 
 - (id)getAd:(NSNumber*)key{
-    return adList[key];
+    return [adList objectForKey:key];
 }
 
 - (void)removeAd:(NSNumber*)key{
