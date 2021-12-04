@@ -14,6 +14,7 @@ import com.bytedance.sdk.openadsdk.TTNativeExpressAd;
 import com.zero.flutter_pangle_ads.PluginDelegate;
 import com.zero.flutter_pangle_ads.event.AdEventAction;
 import com.zero.flutter_pangle_ads.load.FeedAdManager;
+import com.zero.flutter_pangle_ads.utils.UIUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +41,6 @@ class AdFeedView extends BaseAdPage implements PlatformView, TTNativeExpressAd.A
         this.pluginDelegate = pluginDelegate;
         methodChannel = new MethodChannel(this.pluginDelegate.bind.getBinaryMessenger(), PluginDelegate.KEY_FEED_VIEW + "/" + id);
         frameLayout = new FrameLayout(context);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        frameLayout.setLayoutParams(params);
         MethodCall call = new MethodCall("AdFeedView", creationParams);
         showAd(this.pluginDelegate.activity, call);
     }
@@ -123,6 +122,7 @@ class AdFeedView extends BaseAdPage implements PlatformView, TTNativeExpressAd.A
         sendErrorEvent(i, s);
         // 更新宽高
         setFlutterViewSize(0f, 0f);
+        setAdViewSize(0,0);
     }
 
     @Override
@@ -130,7 +130,11 @@ class AdFeedView extends BaseAdPage implements PlatformView, TTNativeExpressAd.A
         Log.i(TAG, "onRenderSuccess v:" + width + " v1:" + height);
         // 添加广告事件
         sendEvent(AdEventAction.onAdPresent);
+        // 设置匡高
         setFlutterViewSize(width, height);
+        int pxWidth= UIUtils.dp2px(activity,width);
+        int pxHeight= UIUtils.dp2px(activity,height);
+        setAdViewSize(pxWidth,pxHeight);
     }
 
     /**
@@ -147,6 +151,17 @@ class AdFeedView extends BaseAdPage implements PlatformView, TTNativeExpressAd.A
         if (methodChannel != null) {
             methodChannel.invokeMethod("setSize", sizeMap);
         }
+    }
+    /**
+     * 设置广告View 父级的宽高
+     *
+     * @param width  宽度
+     * @param height 高度
+     */
+    private void setAdViewSize(int width, int height) {
+        // 设置 FeedView 大小为广告的实际大小
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width,height);
+        frameLayout.setLayoutParams(params);
     }
 
     /**
