@@ -42,6 +42,8 @@
     NSLog(@"%s",__FUNCTION__);
     // 发送广告错误事件
     [self sendErrorEvent:error.code withErrMsg:error.localizedDescription];
+    // 返回空数据
+    self.result(@[]);
 }
 
 - (void)nativeExpressAdSuccessToLoad:(BUNativeExpressAdManager *)nativeExpressAdManager views:(NSArray<__kindof BUNativeExpressAdView *> *)views{
@@ -75,9 +77,9 @@
 - (void)nativeExpressAdViewRenderSuccess:(BUNativeExpressAdView *)nativeExpressAdView{
     NSLog(@"%s",__FUNCTION__);
     // 发送广告事件
-    [self sendEventAction:onAdExposure];
+    [self sendEventAction:onAdPresent];
     // 渲染成功，发送更新展示通知，来更新尺寸
-    [self postNotificationMsg:nativeExpressAdView userInfo:[NSDictionary dictionaryWithObject:onAdExposure forKey:@"event"]];
+    [self postNotificationMsg:nativeExpressAdView userInfo:[NSDictionary dictionaryWithObject:onAdPresent forKey:@"event"]];
 }
 
 - (void)nativeExpressAdViewDidClick:(BUNativeExpressAdView *)nativeExpressAdView{
