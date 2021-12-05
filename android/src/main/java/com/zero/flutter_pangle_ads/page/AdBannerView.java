@@ -144,7 +144,7 @@ class AdBannerView extends BaseAdPage implements PlatformView, TTAdNative.Native
     @Override
     public void onRenderSuccess(View view, float v, float v1) {
         Log.i(TAG, "onRenderSuccess");
-        if (bad != null && activity != null) {
+        if (bad != null) {
             frameLayout.addView(view);
             // 添加广告事件
             sendEvent(AdEventAction.onAdPresent);
