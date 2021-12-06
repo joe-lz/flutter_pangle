@@ -18,9 +18,9 @@ class AdBannerWidget extends StatefulWidget {
   // 广告 id
   final String posId;
   // 创建 Banner 广告位时选择的宽度，默认值是 300
-  final int width;
+  final double width;
   // 创建 Banner 广告位时选择的高度，默认值是 150
-  final int height;
+  final double height;
   // 广告轮播间隔，0 或[30~120]之间的数字，单位为 s,默认为 0 不轮播
   final int interval;
   // 是否显示广告
@@ -57,25 +57,25 @@ class _AdBannerWidgetState extends State<AdBannerWidget>
     if (!widget.show) {
       return SizedBox.shrink();
     }
+    Widget view;
     if (Platform.isIOS) {
-      return SizedBox.fromSize(
-        size: Size(widget.width.toDouble(), widget.height.toDouble()),
-        child: UiKitView(
+      view = UiKitView(
           viewType: viewType,
           creationParams: creationParams,
           creationParamsCodec: const StandardMessageCodec(),
-        ),
       );
     } else {
-      return SizedBox.fromSize(
-        size: Size(widget.width.toDouble(), widget.height.toDouble()),
-        child: AndroidView(
+      view =AndroidView(
           viewType: viewType,
           creationParams: creationParams,
           creationParamsCodec: const StandardMessageCodec(),
-        ),
-      );
+        );
     }
+    // 设定大小
+    return SizedBox.fromSize(
+        size: Size(widget.width, widget.height),
+        child: view,
+      );
   }
 
   @override
