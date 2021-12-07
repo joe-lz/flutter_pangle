@@ -60,22 +60,22 @@ class _AdBannerWidgetState extends State<AdBannerWidget>
     Widget view;
     if (Platform.isIOS) {
       view = UiKitView(
-          viewType: viewType,
-          creationParams: creationParams,
-          creationParamsCodec: const StandardMessageCodec(),
+        viewType: viewType,
+        creationParams: creationParams,
+        creationParamsCodec: const StandardMessageCodec(),
       );
     } else {
-      view =AndroidView(
-          viewType: viewType,
-          creationParams: creationParams,
-          creationParamsCodec: const StandardMessageCodec(),
-        );
+      view = AndroidView(
+        viewType: viewType,
+        creationParams: creationParams,
+        creationParamsCodec: const StandardMessageCodec(),
+      );
     }
     // 设定大小
     return SizedBox.fromSize(
-        size: Size(widget.width, widget.height),
-        child: view,
-      );
+      size: Size(widget.width, widget.height),
+      child: view,
+    );
   }
 
   @override
