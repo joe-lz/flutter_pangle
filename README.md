@@ -30,7 +30,8 @@
 - 🔲 Draw 贴片视频
 
 ## 下载体验
-<a href="https://www.pgyer.com/app/qrcode/fads"><img src="https://www.pgyer.com/app/qrcode/fads" width='100' height='100'></a>
+<a href="https://www.pgyer.com/app/qrcode/fads"><img src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/gzh/gzh_qrcode.jpeg" width='100' height='100'></a>
+> 回复 `穿山甲体验` 
 
 ## 入门使用
 
