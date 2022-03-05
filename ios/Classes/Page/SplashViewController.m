@@ -27,7 +27,7 @@
     self.splashView=[[UIView alloc]initWithFrame:CGRectMake(0, 0,width,height)];
     // 非全屏设置 Logo
     if(!fullScreenAd){
-        CGFloat logoHeight=112.5;// 这里按照 15% 进行logo 的展示，防止尺寸不够的问题，750*15%=112.5
+        CGFloat logoHeight=150;// 这里按照 15% 进行logo 的展示，防止尺寸不够的问题，750*15%=112.5
         adHeight=height-logoHeight;// 广告区域的高度
         // 设置底部 logo
         UIImageView *logoView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:self.logo]];
